@@ -20,8 +20,8 @@ model, decoder, utils = torch.hub.load(
 read_batch, split_into_batches, read_audio, prepare_model_input = utils
 
 # 4. 准备输入
-test_files = [audio_file]
-#test_files = glob(os.path.join(BASE_DIR, 'data', '*.wav'))        //处理目录里所有 WAV：
+test_files = [os.path.join(BASE_DIR, 'data', '237-134500-0009.flac')]      # 单文件
+#test_files = glob(os.path.join(BASE_DIR, 'data', '*.wav'))                #处理目录里所有 WAV：
 batches = split_into_batches(test_files, batch_size=10)
 input = prepare_model_input(read_batch(batches[0]), device=device)
 
