@@ -4,7 +4,7 @@ from glob import glob
 
 # 1. 路径设置
 BASE_DIR = os.path.dirname(os.path.dirname(__file__))
-audio_file = os.path.join(BASE_DIR, 'data', 'speech_orig.wav')
+audio_file = os.path.join(BASE_DIR, 'data', '237-134500-0009.flac')
 
 # 2. 拉取模型
 device = torch.device('cpu')  # 如果想跑 GPU，可改为 'cuda'
