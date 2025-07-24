@@ -1,5 +1,5 @@
 '''
-Silero TTS 演示脚本
+Silero TTS 演示脚本 
 
 前置条件：
   - Python 3.7+
@@ -27,8 +27,9 @@ speaker = 'lj_16khz'   # 预训练说话人: 例如 lj_16khz, v3_en_jenny 等
 device = torch.device('cpu')  # 计算设备: 'cpu' 或 'cuda' (有 GPU 时)
 
 # 指定输出目录
-output_dir = Path(r"E:\GitHubProjects\DOR：AI容器推理时画像组\DOR-AI-container-inference\data\output_audio")       # 自定义输出文件夹
-output_dir.mkdir(parents=True, exist_ok=True)  # 如果不存在则创建
+root = Path(__file__).parent.parent.resolve()
+output_dir = root / "data" / "output_audio"
+output_dir.mkdir(parents=True, exist_ok=True)
 
 # ——————————————————————————————————
 # 2. 从 Torch Hub 加载模型
@@ -45,7 +46,7 @@ model = model.to(device)
 # 3. 准备文本输入
 # ——————————————————————————————————
 # 可以将 example_text 换成自定义字符串列表
-texts = ["hello, my name is Wu Kai Nam, i am currently studying at Jinan University"]  # 例如: ["你好，这是一次 TTS 测试！"]
+texts = ["hello, happy new year haha"]  # 例如: ["你好，这是一次 TTS 测试！"]
 
 # ——————————————————————————————————
 # 4. 合成语音
