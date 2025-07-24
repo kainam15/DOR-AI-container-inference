@@ -1,3 +1,9 @@
+#Cmd
+#docker build -t silero-runtime-profiling .
+#docker run --rm -v "%cd%\data:/app/data" silero-runtime-profiling
+
+
+
 # ----------------------------
 # 1. 基础镜像 & 环境变量
 # ----------------------------
@@ -6,10 +12,12 @@ FROM python:3.12-slim AS base
 # 模型缓存目录
 ENV TORCH_HOME=/app/models
 
+# 设定容器内工作目录
+WORKDIR /app
+
 # ----------------------------
 # 2. 安装 Python 依赖
 # ----------------------------
-WORKDIR /app
 
 # 先拷贝 requirements.txt 并安装
 COPY requirements.txt ./
@@ -18,11 +26,7 @@ RUN pip install --no-cache-dir -r requirements.txt
 # ----------------------------
 # 3. 拷贝项目脚本和数据目录
 # ----------------------------
-# scripts: 包含 silero_tts_demo.py 与 silero_stt_demo.py
-COPY scripts/ ./scripts
-
-# data: 如果你项目中预先有数据，也一起拷贝
-COPY data/ ./data
+COPY . /app
 
 # 创建输出目录
 RUN mkdir -p data/output_audio
