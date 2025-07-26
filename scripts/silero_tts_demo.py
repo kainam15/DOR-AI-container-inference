@@ -46,7 +46,7 @@ model = model.to(device)
 # 3. 准备文本输入
 # ——————————————————————————————————
 # 可以将 example_text 换成自定义字符串列表
-texts = ["hello, yellow new year haha"]  # 例如: ["你好，这是一次 TTS 测试！"]
+texts = ["hello, happy new year haha"]  # 例如: ["你好，这是一次 TTS 测试！"]
 
 # ——————————————————————————————————
 # 4. 合成语音

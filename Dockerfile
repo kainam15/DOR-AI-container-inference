@@ -16,17 +16,16 @@ ENV TORCH_HOME=/app/models
 WORKDIR /app
 
 # ----------------------------
-# 2. 安装 Python 依赖
-# ----------------------------
-
-# 先拷贝 requirements.txt 并安装
-COPY requirements.txt ./
-RUN pip install --no-cache-dir -r requirements.txt
-
-# ----------------------------
-# 3. 拷贝项目脚本和数据目录
+# 2. 拷贝项目脚本和数据目录
 # ----------------------------
 COPY . /app
+
+# ----------------------------
+# 3. 安装依赖
+# ----------------------------
+RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir soundfile
+
 
 # 创建输出目录
 RUN mkdir -p data/output_audio
@@ -41,7 +40,7 @@ torch.hub.load(
     'snakers4/silero-models',
     'silero_tts',
     language='en',  # 使用英语 TTS
-    speaker='v3_en',  # 使用支持英语的模型
+    speaker='lj_16khz',  # 使用支持英语的模型
     force_reload=True,
     trust_repo=True
 )
@@ -59,7 +58,6 @@ EOF
 # 将 /app/data 设为可挂载点，宿主和容器共享 data/output_audio
 VOLUME ["/app/data"]
 
-# 默认命令：运行 TTS Demo；也可以在 `docker run` 时改为
-#    python scripts/silero_stt_demo.py
+# 默认命令：运行 TTS Demo；
 ENTRYPOINT ["python"]
-CMD ["scripts/silero_tts_demo.py"]
+CMD ["scripts/benchmark_tts.py"]
